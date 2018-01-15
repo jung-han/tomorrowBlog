@@ -86,6 +86,108 @@ try{
 결과는 a is not defined가 출력된다. Strict하게 검사를 하는 것이다.
 
 ## 3장
+* Boolean 생성자로 생성한 객체는 무조건 true이다
+```js
+var flag = new Boolean(false);
+console.log(flag); // true
+```
+* `startsWith`를 간단하게 살펴보면
+```js
+let str = "Hello world";
+str.startsWith("Hello"); // true
+str.startsWith("Hell"); // true
+str.startsWith("Hello", 1); // false
+str.startsWith("Hello", 0); // true
+```
+* `substring`, `slice`, `substr` 메소드를 비교해보자
+    * start > end 일 경우 substring의 경우 end+1 ~ start로 바꿔서 출력
+    * slice는 그대로
+    * start 혹은 end가 음수일 경우 substring의 경우 0으로
+    * slice는 뒤에서부터 셈(ex> -2일 경우 뒤에서 세번째 인덱스가 된다.)
+```js
+let str = "WINGS프로젝트";
+console.log(str.substring(8,5)); // 프로젝
+console.log(str.substr(8,5)); // 트
+console.log(str.slice(8,5)); // 
+
+console.log(str.substring(5,-2)); // WINGS
+console.log(str.substr(5,-2)); // 
+console.log(str.slice(5, -2)); // 프로
+```
+* 자바스크립트의 Number 객체
+    * 자바스크립트에서 최대 save integer는 `2^53 - 1`이다. 고로 64비트를 표현하려면 어떻게 해야할까?
+        * BigNumber나 Int64 라이브러리 사용해서 나타내야지..
+* 값의 타입 변환
+```js
+console.log(typeof(123+'')); // string
+console.log(typeof('123'-0); // number
+console.log(typeof('123'-'0'); // number
+console.log(typeof('123'-4)); // number(119가 된다.)
+```
+
+### Symbol(ES2015)
+* Symbol은 Number, Boolean처럼 새롭게 추가된 자바스크립트 Primitive value값이다.
+* 어느 블로그에나 있는 if(Symbol("a") === Symbol("b")) {...} 는 당연히 false일 것이다.
+    * 매번 다른 해시값을 생성한다고 한다.
+* 어디에 쓸까...감이안온다. 물어보자!
+
+다시 돌아와서 
+* Array를 stack과 queue처럼 쓰려면 어떻게 할까?
+```js
+// stack 은 push pop
+let st = new Array();
+st.push(1);
+st.push(2);
+st.push(3);
+console.log(st.pop()); // 3
+console.log(st.pop()); // 2
+console.log(st.pop()); // 1
+console.log(st.length); // 0
+// queue 는 push shift
+let qu = new Array();
+qu.push(1);
+qu.push(2);
+qu.push(3);
+console.log(qu.shift()); // 1
+console.log(qu.shift()); // 2
+console.log(qu.shift()); // 3
+console.log(qu.length); // 0 
+```
+* 세트로 알아두자
+```js
+let data = [100,200,300];
+data.forEach((val)=>{
+    console.log(val);
+});
+data.forEach((val,idx,arr)=>{
+    console.log(val,idx,arr);
+});
+data.map((val)=>{
+    console.log(val);
+});
+data.map((val,idx)=>{
+    console.log(val,idx);
+});
+let result = data.filter((val)=>{
+    return val%2 == 0;
+});
+
+console.log(result); // [200, 300]
+```
+
+### Map과 Set
+일반적으로 C++ 스탠다드 라이브러리에서 사용했었던 맵, 셋과 특성이 비슷하다.
+여기서 Map은 연상배열로 해시처럼 작동하며 Set은 중복되지 않은 값들이 들어간다.
+그럼 여기서 의문이 들 수 있다. Object와 Map의 차이는 그럼 뭘까.
+
+* Map과 객체 리터럴과의 차이
+    * 임의의 형으로 키를 이용할 수 있다. Nan혹은 객체 또한 키가 될 수 있다.
+    * 맵의 사이즈를 취득할 수 있다.
+    * 클린 맵을 만들 수 있다. 
+        * create를 사용하여 Object를 만들어 클린하게 만들 수 있지만 굳이 그럴 필요 없이 Map을 쓰지
+    * 
+
+--- 2018.01.15
 
 ## 4장
 ## 5장
